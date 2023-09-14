@@ -1,0 +1,5 @@
+com\boogipop\memshell\Config.class
+com\boogipop\memshell\FilterTemplate$U.class
+com\boogipop\memshell\FilterBasedWithoutRequest.class
+com\boogipop\memshell\IndexServlet.class
+com\boogipop\memshell\FilterTemplate.class
