@@ -1,5 +1,10 @@
 com\boogipop\memshell\Config.class
+com\boogipop\memshell\EvilCustomizer.class
+com\boogipop\memshell\AddFilterShell.class
 com\boogipop\memshell\FilterTemplate$U.class
-com\boogipop\memshell\FilterBasedWithoutRequest.class
+com\boogipop\memshell\ServletTemplates$U.class
+com\boogipop\memshell\ServletTemplates.class
+com\boogipop\memshell\AddServletShell.class
 com\boogipop\memshell\IndexServlet.class
 com\boogipop\memshell\FilterTemplate.class
+com\boogipop\memshell\InjectJettyFilter.class

