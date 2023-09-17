@@ -17,14 +17,19 @@
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-server</artifactId>
-      <version>9.4.52.v20230823</version>
+      <version>11.0.14</version>
       <scope>provided</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-servlet -->
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-servlet</artifactId>
-      <version>9.4.52.v20230823</version>
+      <version>11.0.14</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-api</artifactId>
+      <version>10.1.7</version>
     </dependency>
 
   </dependencies>
@@ -35,14 +40,14 @@
         <plugin>
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
-          <version>9.4.52.v20230823</version>
+          <version>11.0.14</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
-            <source>6</source>
-            <target>6</target>
+            <source>8</source>
+            <target>8</target>
           </configuration>
         </plugin>
       </plugins>

